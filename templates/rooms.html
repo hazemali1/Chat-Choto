@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block body %}
+
+<h1>Room Page!!</h1>
+
+<div>
+
+    <a href="/create-room">Create Room</a>
+    <hr>
+    <div>
+        {% for room in rooms %}
+            <div>
+                
+                <span>@{{room.host.username}}</span>
+                <h5>
+                    {{room.id}} => <a href="/room/{{room.id}}">{{room.name}}</a>
+                </h5>
+                <small>{{room.topic.name}}</small>
+                <a href="/update-room/{{room.id}}">Edit</a>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}
