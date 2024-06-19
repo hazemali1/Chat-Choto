@@ -9,4 +9,5 @@ urlpatterns = [
     path('room/<int:id>/', views.room),
     path('create-room/', views.createroom),
     path('update-room/<int:id>', views.updateroom),
+    path('delete-room/<int:id>', views.deleteroom),
 ]

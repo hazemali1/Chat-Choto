@@ -6,6 +6,16 @@
     <title>Study Chat</title>
 </head>
 <body>
+    <a href="/">
+        <h1>
+            LOGO
+        </h1>
+    </a>
+    <form method="GET" action="/rooms">
+        <input type="text" name="q" placeholder="Search for rooms......">
+        <input type="submit" value="Search">
+    </form>
+    <hr>
     {% block body %}
     {% endblock %}
 </body>
