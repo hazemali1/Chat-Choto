@@ -15,7 +15,23 @@
         <input type="text" name="q" placeholder="Search for rooms......">
         <input type="submit" value="Search">
     </form>
+
+    {% if request.user.is_authenticated %}
+        <a href="/logout">Logout</a>
+        <h4>Hello {{ request.user }}</h4>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
     <hr>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tag %} class="{{ message.tag }}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     {% block body %}
     {% endblock %}
 </body>
