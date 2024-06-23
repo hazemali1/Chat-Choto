@@ -32,11 +32,18 @@ def rooms(request):
         )
         if not contact:
             return render(request, 'room.html', {'room': None})
+        room_messages = Message.objects.filter(
+            Q(room__topic__name__contains=q)
+        )
     else:
         contact = Room.objects.all()
+        room_messages = Message.objects.filter(
+            Q(room__topic__name__contains='')
+        )
+
     rooms_count = contact.count()
     topics = Topic.objects.all()
-    return render(request, 'rooms.html', {'rooms': contact, 'topics': topics, 'rooms_count': rooms_count})
+    return render(request, 'rooms.html', {'rooms': contact, 'topics': topics, 'rooms_count': rooms_count, 'room_messages': room_messages})
 
 def room(request, id):
     # r = None
@@ -50,11 +57,13 @@ def room(request, id):
             room=r,
             body=request.POST.get('body')
         )
+        r.participants.add(request.user)
         url = '/room/' + str(r.id)
         return redirect(url)
     room_messages = r.message_set.all().order_by('-created')
+    participants = r.participants.all()
 
-    return render(request, 'room.html', {'room': r, 'room_messages': room_messages})
+    return render(request, 'room.html', {'room': r, 'room_messages': room_messages, 'participants': participants})
 
 @login_required(login_url='/login')
 def createroom(request):
@@ -62,7 +71,9 @@ def createroom(request):
     if request.method == 'POST':
         f = RoomForm(request.POST)
         if f.is_valid():
-            f.save()
+            room = f.save(commit=False)
+            room.host = request.user
+            room.save()
             return redirect('/rooms')
     return render(request, 'room_form.html', {'form': form})
 
@@ -78,6 +89,7 @@ def updateroom(request, id):
             return redirect('/rooms')
     return render(request, 'room_form.html', {'form': form})
 
+@login_required(login_url='/login')
 def deleteroom(request, id):
     room = Room.objects.filter(id=id).first()
     if not room:
@@ -85,7 +97,18 @@ def deleteroom(request, id):
     if request.method == 'POST':
         room.delete()
         return redirect('/rooms')
-    return render(request, 'delete.html', {'room': room})
+    return render(request, 'delete.html', {'obj': room})
+
+@login_required(login_url='/login')
+def deletemessage(request, id):
+    message = Message.objects.filter(id=id).first()
+    if not message:
+        return render(request, 'room.html', {'room': None})
+    if request.method == 'POST':
+        message.delete()
+        url = '/room/' + str(message.room.id)
+        return redirect(url)
+    return render(request, 'delete.html', {'obj': message})
 
 def loginpage(request):
     if request.method == 'POST':
@@ -125,3 +148,9 @@ def create_account(request):
             messages.error(request, 'AnError happend during creating a new account')
     return render(request, 'create_account.html', {'form': form})
 
+def userprofile(request, id):
+    user = User.objects.get(id=id)
+    rooms = user.room_set.all()
+    room_message = user.message_set.all()
+    topics = Topic.objects.all()
+    return render(request, 'profile.html', {'user': user, 'rooms': rooms, 'room_messages': room_message, 'topics': topics})

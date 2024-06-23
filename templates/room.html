@@ -2,8 +2,14 @@
 
 {% block body %}
 
+<style>
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
 
-<div>
+<div class="room-container">
 
     
 
@@ -17,6 +23,9 @@
                 <hr>
                 {% for message in room_messages %}
                     <div>
+                        {% if request.user == message.user %}
+                            <a href="/delete_message/{{message.id}}">Delete</a>
+                        {% endif %}
                         <small>@{{message.user}} {{ message.created|timesince }} ago</small>
                         <p>{{message.body}}</p>
                     </div>
@@ -33,6 +42,16 @@
         {% else %}
             <h1>NOT FOUND!!</h1>
         {% endif %}
+    </div>
+
+    <div>
+        <h3>Participants</h3>
+        <hr>
+        {% for participant in participants %}
+            <div>
+                <p>@{{participant.username}}</p>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
