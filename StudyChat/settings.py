@@ -126,7 +126,12 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+AUTH_USER_MODEL = 'app.User'
+
 # STATIC_ROOT = 
+
+MEDIA_ROOT = BASE_DIR / 'static\images'
+MEDIA_URL = '/images/'
 
 
 # Default primary key field type

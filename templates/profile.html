@@ -7,17 +7,28 @@
         grid-template-columns: 1fr 3fr 1fr;
     }
 </style>
-    <h1>{{user.username}}</h1>
-
-    <div class="profile-container">
-        <div>
-            {% include 'topic_component.html' %}
-        </div>
-        <div>
-            {% include 'feed_component.html' %}
-        </div>
-        <div>
-            {% include 'activity_component.html' %}
-        </div>
+<div class="profile-container">
+    <div class="profile-section">
+        <h3>Joined</h3>
+        <hr>
+        <ul>
+            {% for participant in participants %}
+                <li>
+                    <a href="/room/{{participant.id}}" class="room-link">{{participant}}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% include 'topic_component.html' %}
     </div>
+    <div class="profile-section profile-header">
+        <h1>{{ user.username }}</h1>
+        <h3>{{ user.email }}</h3>
+        <h4>{{ user.bio }}</h4>
+        <img src="/static/images/{{ user.avatar }}" alt="Profile Picture">
+        {% include 'feed_component.html' %}
+    </div>
+    <div class="profile-section">
+        {% include 'activity_component.html' %}
+    </div>
+</div>
 {% endblock body %}

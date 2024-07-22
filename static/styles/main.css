@@ -1,3 +1,511 @@
 /* body {
     background-color: aqua;
 } */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #E0E0E0  ;
+    font-family: cursive;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #24c4da00;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px #0fc3f03b;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+}
+
+header nav .search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+header nav .search-form input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+header nav .search-form input[type="submit"] {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: white;
+    color: #0fc3f0;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+header nav .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+header nav .nav-link:hover {
+    color: #03DAC6;
+}
+
+header nav .welcome-msg {
+    margin-left: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+div {
+    padding: 0 10px 0 10px;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+}
+
+.messages li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.messages li.error {
+    border-left: 5px solid #e74c3c;
+}
+
+.messages li.success {
+    border-left: 5px solid #2ecc71;
+}
+
+a {
+    color: #0fc3f0;
+    text-decoration: none;
+}
+
+.recent-activity {
+    margin-top: 2rem;
+}
+
+.recent-activity h3 {
+    margin-bottom: 0.5rem;
+}
+
+.recent-activity hr {
+    border: 1px solid #333333;
+    margin-bottom: 1rem;
+}
+
+.recent-activity div {
+    padding: 1rem;
+    background-color: #1E1E1E;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.recent-activity small {
+    display: block;
+    color: #888888;
+}
+
+.recent-activity a {
+    color: #0fc3f0;
+}
+
+.recent-activity a:hover {
+    color: #03DAC6;
+}
+
+a:hover {
+    color: #03DAC6;
+}
+
+
+.recent-activity p {
+    color: #E0E0E0;
+    margin: 0.5rem 0;
+}
+
+
+
+
+
+.create-account form {
+    background-color: #1E1E1E;
+    padding: 2rem;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 8px #0fc3f070;
+}
+
+.create-account form input[type="text"],
+.create-account form input[type="email"],
+.create-account form input[type="password"],
+.create-account form textarea,
+.create-account form select,
+.create-account form input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #0fc3f027;
+    border-radius: 5px;
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+}
+
+.create-account form input[type="submit"] {
+    background-color: #0fc3f0;
+    color: #121212;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.create-account form input[type="submit"]:hover {
+    background-color: #03DAC6;
+}
+
+.create-account form p {
+    color: #E0E0E0;
+    text-align: left;
+}
+
+.create-account form a {
+    color: #BB86FC;
+    text-align: center;
+    display: block;
+    margin-top: 1rem;
+}
+
+.create-account form span,
+.create-account form ul {
+    display: none;
+}
+
+
+
+
+
+
+
+.delete-confirmation {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.delete-confirmation h2 {
+    font-size: 24px;
+    color: #ff0000; /* Red color to emphasize deletion warning */
+}
+
+.delete-button {
+    background-color: #ff4444;
+    color: white;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    background-color: #ff0000;
+}
+
+.cancel-button {
+    text-decoration: none;
+    color: white;
+    background-color: #444;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.cancel-button:hover {
+    background-color: #666;
+}
+
+
+hr {
+    border-color: #666;
+}
+
+.room-list {
+    margin-top: 20px;
+}
+
+.room-item {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #2a2a2a;
+}
+
+.host-link {
+    font-size: 14px;
+    /* color: #ffcc00; */
+    text-decoration: none;
+}
+
+.room-title {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.room-link {
+    /* color: #ffcc00; */
+    text-decoration: none;
+}
+
+
+
+.room-topic {
+    float: right;
+    font-size: 14px;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 20px;
+    margin-top: -3px;
+    padding: 6px;
+    background-color: #2a2a2a00;
+}
+
+.room-actions {
+    margin-top: 10px;
+}
+
+.edit-button,
+.delete-button {
+    background-color: #444;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #666;
+}
+
+.delete-button {
+    background-color: #e73d3d46;
+}
+
+.d{
+    background-color: #e73d3d46;
+    float: right;
+    margin-right: -15px;
+    margin-top: -60px;
+}
+
+.delete-button:hover {
+    background-color: #ff0000b6;
+}
+
+
+
+.room-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+}
+
+.room-content,
+.participants {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    height: fit-content;
+}
+
+.room-content h2,
+.room-content h3 {
+    color: white;
+    margin: 0;
+}
+
+.room-content .description {
+    font-size: 9px;
+    margin-bottom: 8px;
+    color: #0fc3f0;
+}
+
+.comment_wrapper h3 {
+    color: #ccc;
+}
+
+.comment_wrapper hr {
+    border-color: #666;
+}
+
+.comment_wrapper .message {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 4px #0fc3f03b;
+}
+
+.comment_wrapper .my-message {
+    align-items: flex-end;
+}
+
+.comment_wrapper small {
+    color: black;
+}
+
+.comment_wrapper p {
+    color: #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.comment_wrapper .dele {
+    text-decoration: none;
+    background-color: #e73d3d46;
+    float: right;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.comment_wrapper .dele:hover {
+    background-color: #ff0000b6;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #444;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.participants h3 {
+    color: white;
+}
+
+.participants hr {
+    border-color: #666;
+}
+
+.participants div {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+}
+
+.participants p {
+    color: #ddd;
+    font-size: 16px;
+}
+
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 20px;
+}
+
+.profile-header {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    text-align: center;
+}
+
+.profile-header h1,
+.profile-header h3,
+.profile-header h4 {
+    color: white;
+    margin: 10px 0;
+}
+
+.profile-header img {
+    border-radius: 50%;
+    max-width: 150px;
+    margin: 20px 0;
+}
+
+.profile-section {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    height: fit-content;
+}
+
+.profile-section h3 {
+    color: white;
+}
+
+.profile-section hr {
+    border-color: #666;
+}
+
+.profile-section p {
+    color: #ddd;
+    font-size: 16px;
+}
+
+.message {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.my-message {
+    align-items: flex-end;
+}
+
+.message small {
+    color: #ccc;
+}
+
+.message p {
+    color: #ddd;
+    font-size: 16px;
+}
+
+.message a {
+    color: #ff4444;
+    text-decoration: none;
+}
+
+.message a:hover {
+    text-decoration: underline;
+}

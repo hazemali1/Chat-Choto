@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Room, Topic, Message
-from .forms import RoomForm
+from .models import Room, Topic, Message, User
+from .forms import RoomForm, UserForm
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -135,9 +134,9 @@ def logoutpage(request):
     return redirect('/rooms')
 
 def create_account(request):
-    form = UserCreationForm()
+    form = UserForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -153,4 +152,12 @@ def userprofile(request, id):
     rooms = user.room_set.all()
     room_message = user.message_set.all()
     topics = Topic.objects.all()
-    return render(request, 'profile.html', {'user': user, 'rooms': rooms, 'room_messages': room_message, 'topics': topics})
+    contact = Room.objects.all()
+    participants = []
+    for room in contact:
+        for participant in room.participants.all():
+            if str(participant) == user.username:
+                participants.append(room)
+
+
+    return render(request, 'profile.html', {'user': user, 'rooms': rooms, 'room_messages': room_message, 'topics': topics, 'contact': contact, 'participants': participants})

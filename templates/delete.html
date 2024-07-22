@@ -2,11 +2,13 @@
 
 {% block body %}
 
-<h2>Are you sure you wanna delete "{{obj}}"?!!</h2>
-<form method="POST" action="">
-    {% csrf_token %}
-    <a href="{{ request.META.HTTP_REFERER }}">Cancle</a>
-    <input type="submit" value="Delete">
-</form>
+<div class="delete-confirmation">
+    <h2>Are you sure you want to delete "{{obj}}"?!!</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <a href="{{ request.META.HTTP_REFERER }}" class="cancel-button">Cancel</a>
+        <input type="submit" value="Delete" class="delete-button">
+    </form>
+</div>
 
 {% endblock body %}
