@@ -15,4 +15,5 @@ urlpatterns = [
     path('logout/', views.logoutpage),
     path('create_account/', views.create_account),
     path('profile/<int:id>', views.userprofile),
+    path('update-profile/<int:id>', views.updateprofile),
 ]

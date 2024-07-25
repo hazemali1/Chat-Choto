@@ -502,10 +502,58 @@ input[type="text"] {
 }
 
 .message a {
-    color: #ff4444;
     text-decoration: none;
 }
 
-.message a:hover {
-    text-decoration: underline;
+
+
+
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+#messageInput {
+    width: 100%;
+    padding-right: 50px; /* Make room for the button */
+    box-sizing: border-box;
+}
+
+.send-button {
+    position: absolute;
+    right: 14px;
+    top: 61%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url('/static/images/right.png') no-repeat center center;
+    background-size: contain;
+}
+
+
+.send-button:hover {
+    background-color: white; /* Change background color on focus/hover */
+    border-radius: 50%;
+}
+
+
+.edit-button-profile {
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    float: right; 
+}
+
+.edit-button-profile img {
+    width: 30px;
+    margin: 0;
+}
+
+.edit-button-profile img:hover {
+    background-color: #666;
 }

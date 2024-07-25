@@ -29,12 +29,16 @@
                 {% endfor %}
             </div>
             {% if request.user.is_authenticated %}
-                <div>
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <input type="text" name="body" placeholder="Write Your Message Here...">
-                    </form>
-                </div>
+            <div>
+                <form id="messageForm" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="input-container">
+                        <input type="text" id="messageInput" name="body" placeholder="Write Your Message Here...">
+                        <input type="submit" value="" class="send-button">
+                    </div>
+                </form>
+            </div>
+                        
             {% endif %}
         {% else %}
             <h1>NOT FOUND!!</h1>
@@ -51,5 +55,7 @@
         {% endfor %}
     </div>
 </div>
+
+
 
 {% endblock body %}

@@ -161,3 +161,20 @@ def userprofile(request, id):
 
 
     return render(request, 'profile.html', {'user': user, 'rooms': rooms, 'room_messages': room_message, 'topics': topics, 'contact': contact, 'participants': participants})
+
+
+
+def updateprofile(request, id):
+    user = User.objects.filter(id=id).first()
+    if not user:
+        return render(request, 'room.html', {'room': None})
+    form = UserForm(instance=user)
+    if request.method == 'POST':
+        f = UserForm(request.POST, request.FILES, instance=user)
+        if f.is_valid():
+            f.save()
+            url = '/profile/' + str(id)
+            return redirect(url)
+        else:
+            print(f.errors)
+    return render(request, 'user_form.html', {'form': form})
