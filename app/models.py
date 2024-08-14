@@ -38,7 +38,9 @@ class Room(models.Model):
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    body = models.TextField()
+    body = models.TextField(blank=True, null=True)
+    file = models.FileField(upload_to='files/', blank=True, null=True)
+    extension = models.CharField(max_length=10, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

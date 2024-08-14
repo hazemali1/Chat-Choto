@@ -1,0 +1,61 @@
+
+<h3>Conversation</h3>
+{% for message in messages %}
+    <hr>
+    <div class="message{% if username == message.user %} my-message{% endif %}">
+        {% if username == message.user %}
+            <a class="dele" href="/delete_message/{{message.id}}">X</a>
+        {% endif %}
+        <small><a href="/profile/{{message.user.id}}">@{{message.user}}</a> {{ message.created|timesince }} ago</small>
+        {% if username == message.user %}
+            <div>
+                <p>{{message.body}}</p>
+                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                {% if message.file %}
+                    {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
+                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                    {% elif message.extension == ".gif" %}
+                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                    {% elif message.extension == ".mp4" or message.extension == ".avi" %}
+                        <video controls style="max-width: 300px;">
+                            <source src="{{ message.file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% else %}
+                        <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% else %}
+            <div>
+                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                <p>{{message.body}}</p>
+                {% if message.file %}
+                    {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
+                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                    {% elif message.extension == ".gif" %}
+                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                    {% elif message.extension == ".mp4" or message.extension == ".avi" %}
+                        <video controls style="max-width: 300px;">
+                            <source src="{{ message.file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% else %}
+                        <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    
+{% endfor %}
+<!-- <script>
+    console.log(x)
+    function delayedPrintHello() {
+        setTimeout(function() {
+            // x = true
+        }, 500);
+        console.log("hehe")
+    }
+    delayedPrintHello();
+</script> -->

@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
+import os
+
 
 # Create your views here.
 from django.http import HttpResponse
 from .models import Room, Topic, Message, User
-from .forms import RoomForm, UserForm
+from .forms import RoomForm, UserForm, FileForm
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.template.loader import render_to_string
 
 # contact = [
 #     {'id': 1, 'name': 'lets learn python'},
@@ -26,8 +29,7 @@ def rooms(request):
         # contains for search for any one contains these latters!
         contact = Room.objects.filter(
             Q(topic__name__contains=q) |
-            Q(name__contains=q) |
-            Q(description__contains=q)
+            Q(name__contains=q)
         )
         if not contact:
             return render(request, 'room.html', {'room': None})
@@ -50,19 +52,34 @@ def room(request, id):
     #     if i['id'] == int(id):
     #         r = i
     r = Room.objects.filter(id=id).first()
+    messages = r.message_set.all().order_by('created')
     if request.method =='POST':
-        message = Message.objects.create(
-            user=request.user,
-            room=r,
-            body=request.POST.get('body')
-        )
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.user = request.user
+            message.room = r
+            if message.file:
+                    message.extension = os.path.splitext(message.file.name)[1].lower()
+            message.save()
+
+        # message = Message.objects.create(
+        #     user=request.user,
+        #     room=r,
+        #     body=request.POST.get('body'),
+        #     file=request.POST.get('file')
+        # )
         r.participants.add(request.user)
         url = '/room/' + str(r.id)
-        return redirect(url)
-    room_messages = r.message_set.all().order_by('-created')
+        # return redirect(url)
+        html = render_to_string('chat_log.html', {'messages': messages})
+        return HttpResponse(html)
+    else:
+        form = FileForm()
+    room_messages = r.message_set.all().order_by('created')
     participants = r.participants.all()
 
-    return render(request, 'room.html', {'room': r, 'room_messages': room_messages, 'participants': participants})
+    return render(request, 'room.html', {'room': r, 'room_messages': room_messages, 'participants': participants, 'form': form})
 
 @login_required(login_url='/login')
 def createroom(request):
@@ -178,3 +195,15 @@ def updateprofile(request, id):
         else:
             print(f.errors)
     return render(request, 'user_form.html', {'form': form})
+
+
+def room_test(request, room_name):
+    return render(request, 'chat.html', {
+        'room_name': room_name
+    })
+
+def room_messages(request, id):
+    room = Room.objects.filter(id=id).first()
+    messages = room.message_set.all().order_by('created')
+    html = render_to_string('chat_log.html', {'messages': messages, 'username': request.user})
+    return HttpResponse(html)

@@ -1,6 +1,7 @@
 from django.forms import ModelForm
-from .models import Room, User
+from .models import Room, User, Message
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 
 class RoomForm(ModelForm):
@@ -31,4 +32,12 @@ class UserForm(UserCreationForm):
             raise forms.ValidationError("A user with that username already exists.")
         return username
 
+
+class FileForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = ('file', 'body',)
+        widgets = {
+            'body': forms.TextInput(attrs={'id': 'message-input', 'placeholder': 'Write your message here...'}),
+        }
 

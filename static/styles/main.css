@@ -499,15 +499,24 @@ input[type="text"] {
 .message p {
     color: #ddd;
     font-size: 16px;
+    display: inline-block;
 }
 
 .message a {
     text-decoration: none;
 }
 
+.message-img {
+    border-radius: 50%;
+    max-width: 30px;
+    margin-bottom: -13px;
+    cursor: pointer;
+}
 
-
-
+.input-container textarea {
+    height: 30px;
+    width: -webkit-fill-available;
+}
 
 .input-container {
     position: relative;
@@ -522,8 +531,8 @@ input[type="text"] {
 
 .send-button {
     position: absolute;
-    right: 14px;
-    top: 61%;
+    right: 5px;
+    top: 79%;
     transform: translateY(-50%);
     border: none;
     background: none;
@@ -557,3 +566,37 @@ input[type="text"] {
 .edit-button-profile img:hover {
     background-color: #666;
 }
+
+
+#message-input {
+    width: 98%;
+}
+
+
+.input-container label {
+    display: none;
+}
+
+/* @keyframes fadeInUp {
+    from {
+        opacity: 0.5;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+.message.fade-in {
+    opacity: 0.5; 
+    animation: fadeInUp 1s ease forwards;
+}
+.my-message.fade-in {
+    opacity: 0.5; 
+    animation: fadeInUp 1s ease forwards;
+} */
+
+/* #chat-log {
+    scroll-behavior: smooth;
+} */

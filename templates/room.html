@@ -7,6 +7,17 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
     }
+
+    .input-container {
+        outline: none; /* Remove the default focus outline */
+    }
+
+    /* Optional: Add a custom focus style if needed */
+    .input-container:focus {
+        outline: none; /* Ensure no outline */
+        /* Optionally, add custom styles like background color */
+        /* background-color: lightblue; */
+    }
 </style>
 
 <div class="room-container">
@@ -14,7 +25,7 @@
         {% if room %}
             <h2>{{room.name}}</h2>
             <h3 class="description">{{room.description}}</h3>
-            <div class="comment_wrapper">
+            <div class="comment_wrapper" id="chat-log" hx-get="{% url 'room_messages' room.id %}" hx-trigger="every 1s" hx-swap="innerHTML">
                 <h3>Conversation</h3>
                 {% for message in room_messages %}
                     <hr>
@@ -23,17 +34,58 @@
                             <a class="dele" href="/delete_message/{{message.id}}">X</a>
                         {% endif %}
                         <small><a href="/profile/{{message.user.id}}">@{{message.user}}</a> {{ message.created|timesince }} ago</small>
-                        <p>{{message.body}}</p>
+                        {% if request.user == message.user %}
+                            <div>
+                                <p>{{message.body}}</p>
+                                {% if message.file %}
+                                    {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
+                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                                    {% elif message.extension == ".gif" %}
+                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                                    {% elif message.extension == ".mp4" or message.extension == ".avi" %}
+                                        <video controls style="max-width: 300px;">
+                                            <source src="{{ message.file.url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
+                                    {% endif %}
+                                {% endif %}
+                                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                            </div>
+                        {% else %}
+                            <div>
+                                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                                <p>{{message.body}}</p>
+                                {% if message.file %}
+                                    {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
+                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                                    {% elif message.extension == ".gif" %}
+                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                                    {% elif message.extension == ".mp4" or message.extension == ".avi" %}
+                                        <video controls style="max-width: 300px;">
+                                            <source src="{{ message.file.url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                     
                 {% endfor %}
             </div>
+            <br class="going-here" tabindex="0">
             {% if request.user.is_authenticated %}
-            <div>
-                <form id="messageForm" method="POST" action="">
+            <div id="x" class="x">
+                <form id="messageForm" method="POST" action="" enctype="multipart/form-data" hx-post="." hx-target="#chat-log" hx-swap="innerHTML" hx-on="htmx:afterRequest: document.querySelector('#message-input').value = ''" onsubmit="printHello()">
                     {% csrf_token %}
-                    <div class="input-container">
-                        <input type="text" id="messageInput" name="body" placeholder="Write Your Message Here...">
+                    <div class="input-container" tabindex="0">
+                        <!-- <input type="text" id="messageInput" name="body" placeholder="Write Your Message Here...">
+                        <input type="file" accept="image/*" id="messageFileInput" name="file"> -->
+                        {{ form.as_p }}
                         <input type="submit" value="" class="send-button">
                     </div>
                 </form>
@@ -43,6 +95,7 @@
         {% else %}
             <h1>NOT FOUND!!</h1>
         {% endif %}
+        
     </div>
 
     <div class="participants">
@@ -55,6 +108,48 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    window.onload = function() {
+            // Force focus on the div even after refresh
+            setTimeout(function() {
+                document.querySelector('.going-here').focus();
+            }, 100); // Slight delay to override any default behavior
+        };
+    function printHello() {
+        document.getElementById("x").class = "y";
+        console.log("rrrrrrrrrrrrrr")
+    }
+    document.addEventListener('htmx:afterSwap', function(event) {
+        // Check if the content was swapped in the chat-log container
+        if (event.target.id === 'chat-log') {
+            // Get the last message before the swap
+            const oldMessages = document.querySelectorAll('#chat-log .message');
+            const lastOldMessage = oldMessages[oldMessages.length - 1];
+
+            // Add the fade-in class to the new messages
+            const newMessages = Array.from(event.target.querySelectorAll('.message'));
+            newMessages.forEach(function(message) {
+                if (message === lastOldMessage && document.getElementById("x").class === "y") {
+                    message.classList.add('fade-in');
+
+                    message.addEventListener('animationend', function() {
+                    message.classList.remove('fade-in');
+                    console.log("jdbflkidisdhudu")
+                });
+                function delayedPrintHello() {
+                    setTimeout(function() {
+                        document.getElementById("x").class = "x";
+                    }, 500);
+                    console.log("hehe")
+                }
+                delayedPrintHello();
+                }
+            });
+
+        }
+    });
+</script>
 
 
 
