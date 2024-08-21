@@ -600,3 +600,8 @@ input[type="text"] {
 /* #chat-log {
     scroll-behavior: smooth;
 } */
+
+
+#id_file {
+    display: none;
+}

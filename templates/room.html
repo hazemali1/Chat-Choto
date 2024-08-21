@@ -85,7 +85,10 @@
                     <div class="input-container" tabindex="0">
                         <!-- <input type="text" id="messageInput" name="body" placeholder="Write Your Message Here...">
                         <input type="file" accept="image/*" id="messageFileInput" name="file"> -->
+                        <i class="fa-solid fa-clone" id="uploadIcon"></i>
+
                         {{ form.as_p }}
+                        
                         <input type="submit" value="" class="send-button">
                     </div>
                 </form>
@@ -141,7 +144,7 @@
                     setTimeout(function() {
                         document.getElementById("x").class = "x";
                     }, 500);
-                    console.log("hehe")
+                    // console.log("hehe")
                 }
                 delayedPrintHello();
                 }
@@ -149,6 +152,34 @@
 
         }
     });
+    
+    document.getElementById('uploadIcon').addEventListener('click', function() {
+    document.getElementById('id_file').click(); // Trigger the file input dialog
+});
+
+document.getElementById('id_file').addEventListener('change', function() {
+    const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+    document.getElementById('uploadIcon').textContent = fileName;
+});
+
+
+document.getElementById('send-button').addEventListener('click', function() {
+    const fileInput = document.getElementById('id_file');
+    
+    // Simulate file upload or form submission
+    if (fileInput.files.length > 0) {
+        // Perform your file upload or form submission logic here
+
+        // Clear the file input after sending the file
+        fileInput.value = ''; // Clear the file input
+        document.getElementById('uploadIcon').textContent = 'Choose File'; // Reset the icon text
+        console.log("fileInput.value");
+    } else {
+        alert('No file chosen');
+    }
+});
+
+
 </script>
 
 
