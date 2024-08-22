@@ -650,3 +650,12 @@ input[type="text"] {
     height: 30px;
     cursor: pointer;
 }
+
+#id_usable_password {
+    display: none;
+}
+/* Target the last <p> tag within a form with class 'form-class' */
+.form-class p:last-of-type {
+    display: none; /* Ensure the last <p> tag is displayed */
+    /* Add any additional styles if needed */
+}

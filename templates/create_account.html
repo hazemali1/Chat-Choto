@@ -3,11 +3,24 @@
 
 {% block body %}
 <div class="create-account">
-    <form method="POST" action="">
+    <form method="POST" action="" class="form-class" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Login">
     </form>
     <p>Don't have an account? <a href="/signup">Sign up</a></p>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.form-class');
+    const paragraphs = form.querySelectorAll('p');
+    console.log(paragraphs);
+    if (paragraphs.length > 0) {
+        const lastParagraph = paragraphs[paragraphs.length - 2];
+        lastParagraph.style.display = 'none'; // Hide the last <p> tag
+    }
+});
+
+</script>
 {% endblock body %}
