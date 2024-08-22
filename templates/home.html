@@ -1,6 +1,109 @@
 {% extends 'main.html' %}
 
 {% block body %}
+<style>
+    .containerr {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+    }
 
+    /* Global styles */
+
+
+/* Hero section styling */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background: linear-gradient(135deg, #6b5b95, #d96459);
+    color: #2a2a2a;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1%;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s infinite;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+    animation: fadeInUp 1s ease-out;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-top: 10px;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+/* Keyframe animations */
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+<div class="containerr">
+
+
+
+    <div>
+        <a href="/create-room">Create Room</a>
+        <hr>
+        <h5> {{rooms_count}} rooms avalibe</h5>
+
+        {% include 'feed_component.html' %}
+    </div>
+
+
+    <div class="hero">
+        <div class="container">
+            <h1>Welcome to Chat Choto</h1>
+            <h3>Your go to place for chatting with friends and joining rooms!</h3>
+        </div>
+    </div>
+</div>
 
 {% endblock body %}

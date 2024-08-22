@@ -21,10 +21,12 @@
         {% include 'topic_component.html' %}
     </div>
     <div class="profile-section profile-header">
-        <a href="/update-profile/{{user.id}}" class="edit-button-profile"><img src="/static/images/setting.png"></a>
+        {% if request.user == user %}
+            <a href="/update-profile/{{user.id}}" class="edit-button-profile"><img src="/static/images/setting.png"></a>
+        {% endif %}
         <br>
         <h1>{{ user.username }}</h1>
-        <h3>{{ user.email }}</h3>
+        <!-- <h3>{{ user.email }}</h3> -->
         <h4>{{ user.bio }}</h4>
         <img src="/static/images/{{ user.avatar }}" alt="Profile Picture">
         {% include 'feed_component.html' %}

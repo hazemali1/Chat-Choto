@@ -531,8 +531,8 @@ input[type="text"] {
 
 .send-button {
     position: absolute;
-    right: 5px;
-    top: 79%;
+    right: 2%;
+    top: 64%;
     transform: translateY(-50%);
     border: none;
     background: none;
@@ -604,4 +604,49 @@ input[type="text"] {
 
 #id_file {
     display: none;
+}
+
+
+#uploadIcon {
+    position: absolute;
+    right: 8%;
+    top: 79%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+
+#uploadIcon {
+    position: relative; /* Needed if using ::before */
+    text-indent: -9999px; /* Hide text */
+    overflow: hidden; /* Ensure no overflow */
+    /* Uncomment other methods if needed */
+    /* visibility: hidden; */
+    /* opacity: 0; */
+    /* clip-path: inset(0 0 100% 0); */
+}
+
+/* If using ::before */
+#uploadIcon::before {
+    content: ''; /* Empty content */
+    position: absolute; /* Overlay position */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/static/images/attach-file.png') no-repeat center center;
+    background-size: contain;
+    z-index: 1; /* Ensure overlay is on top of text */
+}
+
+#uploadIcon {
+    position: absolute;
+    right: 6%;
+    top: 65%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }

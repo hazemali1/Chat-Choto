@@ -21,7 +21,27 @@ from django.template.loader import render_to_string
 
 
 def home(request):
-    return render(request, 'home.html')
+    q = request.GET.get('q')
+    if q:
+        # contains for search for any one contains these latters!
+        contact = Room.objects.filter(
+            Q(topic__name__contains=q) |
+            Q(name__contains=q)
+        )
+        if not contact:
+            return render(request, 'room.html', {'room': None})
+        room_messages = Message.objects.filter(
+            Q(room__topic__name__contains=q)
+        )
+    else:
+        contact = Room.objects.all()
+        room_messages = Message.objects.filter(
+            Q(room__topic__name__contains='')
+        )
+
+    rooms_count = contact.count()
+    topics = Topic.objects.all()
+    return render(request, 'home.html', {'rooms': contact, 'topics': topics, 'rooms_count': rooms_count, 'room_messages': room_messages})
 
 def rooms(request):
     q = request.GET.get('q')

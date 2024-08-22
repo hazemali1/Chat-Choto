@@ -10,14 +10,14 @@
         {% if username == message.user %}
             <div>
                 <p>{{message.body}}</p>
-                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                
                 {% if message.file %}
                     {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
-                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;border-radius: 50%;">
                     {% elif message.extension == ".gif" %}
-                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;border-radius: 50%;">
                     {% elif message.extension == ".mp4" or message.extension == ".avi" %}
-                        <video controls style="max-width: 300px;">
+                        <video controls style="max-width: 300px;border-radius: 50%;">
                             <source src="{{ message.file.url }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -25,18 +25,19 @@
                         <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
                     {% endif %}
                 {% endif %}
+                <a href="/profile/{{message.user.id}}"><img class="message-img" src="/static/images/{{message.user.avatar}}"></a>
             </div>
         {% else %}
             <div>
-                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                <a href="/profile/{{message.user.id}}"><img class="message-img" src="/static/images/{{message.user.avatar}}"></a>
                 <p>{{message.body}}</p>
                 {% if message.file %}
                     {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
-                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;border-radius: 50%;">
                     {% elif message.extension == ".gif" %}
-                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;border-radius: 50%;">
                     {% elif message.extension == ".mp4" or message.extension == ".avi" %}
-                        <video controls style="max-width: 300px;">
+                        <video controls style="max-width: 300px;border-radius: 50%;">
                             <source src="{{ message.file.url }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>

@@ -39,11 +39,11 @@
                                 <p>{{message.body}}</p>
                                 {% if message.file %}
                                     {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
-                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;border-radius: 50%;">
                                     {% elif message.extension == ".gif" %}
-                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;border-radius: 50%;">
                                     {% elif message.extension == ".mp4" or message.extension == ".avi" %}
-                                        <video controls style="max-width: 300px;">
+                                        <video controls style="max-width: 300px;border-radius: 50%;">
                                             <source src="{{ message.file.url }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
@@ -51,19 +51,19 @@
                                         <p><a href="{{ message.file.url }}" download>Download {{ message.file.name }}</a></p>
                                     {% endif %}
                                 {% endif %}
-                                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                                <a href="/profile/{{message.user.id}}"><img class="message-img" src="/static/images/{{message.user.avatar}}"></a>
                             </div>
                         {% else %}
                             <div>
-                                <img class="message-img" src="/static/images/{{message.user.avatar}}">
+                                <a href="/profile/{{message.user.id}}"><img class="message-img" src="/static/images/{{message.user.avatar}}"></a>
                                 <p>{{message.body}}</p>
                                 {% if message.file %}
                                     {% if message.extension == ".jpg" or message.extension == ".png" or message.extension == ".jpeg" %}
-                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;">
+                                        <img src="{{ message.file.url }}" alt="Image" style="max-width: 100px;border-radius: 50%;">
                                     {% elif message.extension == ".gif" %}
-                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;">
+                                        <img src="{{ message.file.url }}" alt="GIF" style="max-width: 300px;border-radius: 50%;">
                                     {% elif message.extension == ".mp4" or message.extension == ".avi" %}
-                                        <video controls style="max-width: 300px;">
+                                        <video controls style="max-width: 300px;border-radius: 50%;">
                                             <source src="{{ message.file.url }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
@@ -85,7 +85,7 @@
                     <div class="input-container" tabindex="0">
                         <!-- <input type="text" id="messageInput" name="body" placeholder="Write Your Message Here...">
                         <input type="file" accept="image/*" id="messageFileInput" name="file"> -->
-                        <i class="fa-solid fa-clone" id="uploadIcon"></i>
+                        <i class="fa-solid fa-clone" id="uploadIcon">gggg</i>
 
                         {{ form.as_p }}
                         
@@ -163,21 +163,25 @@ document.getElementById('id_file').addEventListener('change', function() {
 });
 
 
-document.getElementById('send-button').addEventListener('click', function() {
-    const fileInput = document.getElementById('id_file');
-    
-    // Simulate file upload or form submission
-    if (fileInput.files.length > 0) {
-        // Perform your file upload or form submission logic here
 
-        // Clear the file input after sending the file
-        fileInput.value = ''; // Clear the file input
-        document.getElementById('uploadIcon').textContent = 'Choose File'; // Reset the icon text
-        console.log("fileInput.value");
-    } else {
-        alert('No file chosen');
-    }
-});
+// document.addEventListener('DOMContentLoaded', function() {
+// document.getElementById('send-button').addEventListener('click', function() {
+//     console.log("hehehehehe");
+//     const fileInput = document.getElementById('id_file');
+    
+//     // Simulate file upload or form submission
+//     if (fileInput.files.length > 0) {
+//         // Perform your file upload or form submission logic here
+
+//         // Clear the file input after sending the file
+//         fileInput.value = ''; // Clear the file input
+//         document.getElementById('uploadIcon').textContent = 'Choose File'; // Reset the icon text
+        
+//     } else {
+//         alert('No file chosen');
+//     }
+// });
+// });
 
 
 </script>

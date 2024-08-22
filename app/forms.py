@@ -19,6 +19,7 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'username', 'name', 'bio', 'avatar']
+        expect = ['Password-based authentication']
 
     def __init__(self, *args, **kwargs):
         self.user_instance = kwargs.get('instance')
